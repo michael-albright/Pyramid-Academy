@@ -60,16 +60,3 @@ public class GuessTheNumber {
 }
 
 
-
-/*    public static void replay(Scanner scan, boolean x) {
-        System.out.println("Press 'y' if you would like to play again.");
-            if (!scan.next().equalsIgnoreCase("y")) {
-                x = false;
-                System.out.println("Thanks for playing!");
-            }
-
-    }
-
-    replay(scan, incorrect);
-
- */
