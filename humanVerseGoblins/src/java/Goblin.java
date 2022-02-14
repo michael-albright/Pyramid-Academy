@@ -29,16 +29,6 @@ public class Goblin  {
 
 
 
-    public String toString(HashMap<Integer, String[]> hash) {
-        String str2 = "";
-        for(int i=0; i<hash.size(); i++) {
-            for(String s : hash.get(i)) {
-                str2 += s;
-            }
-        }
-        return str2;
-    }
-
 
 
 

@@ -8,6 +8,7 @@ public class Human {
     String name;
     ArrayList<String> inventory = new ArrayList<>();
 
+
     Human(int health, int strength, int row, int col, String name) {
         this.health = health;
         this.strength = strength;
@@ -16,71 +17,74 @@ public class Human {
         this.name = name;
     }
 
-    public String checkTreasureForPotion(String str, Treasure treasure, Human human, Land land, Scanner scan) {
-        String message;
-        boolean potion;
+    public boolean checkTreasureForPotion(String str, Treasure treasure, Human human, Land land, Scanner scan) {
         if(str.equals(treasure.drink1)) {
             System.out.println("You have found a rare item. Press any button to see what it is!");
             scan.next();
             human.health = human.health + 10;
-            message = "Congratulations " + human.name + "! The Magic Potion has raised your health by 10 points!";
+            System.out.println("Congratulations " + human.name + "! The Magic Potion has raised your health by 10 points!");
             land.grid.get(human.row)[human.col] = " H ";
-            potion = true;
+
         } else if(str.equals(treasure.drink2)) {
             System.out.println("You have found a rare item. Press any button to see what it is!");
             scan.next();
             human.health = human.health - 5;
-            message = "Sorry " + human.name + " the chest contained a bomb and it blew taking away 5 health points.";
+            System.out.println("Sorry " + human.name + " the chest contained a bomb and it blew taking away 5 health points.");
             land.grid.get(human.row)[human.col] = " H ";
-            potion = true;
+            if(human.health < 1) {
+                System.out.println("Sorry " + human.name + " that bomb killed you. Better luck next time.");
+                return false;
+            }
+
         } else {
-            human.inventory.add(str);
-            message = "Treasure chest contained: " + str + ". It has been added to your arsenal.";
+            human.inventory.add(str.toLowerCase());
+            System.out.println("Treasure chest contained: " + str + ". It has been added to your arsenal.");
             land.grid.get(human.row)[human.col] = " H ";
-            potion = false;
+
         }
-        return message;
+        return true;
     }
 
-    public String useItem(String str, Human human, Goblin goblin) {
+    public String useItem(String str, Human human, Goblin goblin, String[] arr) {
         String message = "";
-        for(String i : inventory) {
-            if(i.toLowerCase().equals(str)) {
+        for (String temp : human.inventory) {
+            if (temp.contains(str)) {
                 switch (str) {
                     case "dagger" -> {
                         human.strength = human.strength + 1;
-                        message = "Your strength during this battle will be raised by 1.";
-                        inventory.remove("Dagger");
+                        human.inventory.remove("dagger");
+                        arr[0] = "dagger";
+                        return "Your strength during this battle will be raised by 1.";
                     }
                     case "sword" -> {
                         human.strength = human.strength + 3;
-                        message = "Your strength during this battle will be raised by 3.";
-                        inventory.remove("Sword");
+                        human.inventory.remove("sword");
+                        arr[0] = "sword";
+                        return "Your strength during this battle will be raised by 3.";
                     }
-                    case "brass armor" -> {
-                        goblin.strength = goblin.strength - 1;
-                        message = "The brass armor reduced the strength of your opponent by 1 point during this battle.";
-                        inventory.remove("Brass Armor");
-                    }
-                    case "gold armor" -> {
+                    case "armor" -> {
                         goblin.strength = 1;
-                        message = "The gold armor reduced the strength of your opponent to 1 1 point during this battle.";
-                        inventory.remove("Gold Armor");
+                        human.inventory.remove("armor");
+                        arr[0] = "armor";
+                        return "Your armor reduced the strength of your opponent to 1 point during this battle.";
                     }
-                    default -> { message = "Not a valid response."; }
                 }
-
             }
-            message = "Sorry, you do not have " + str + " in your arsenal.";
         }
-        return message;
+        return "Your arsenal does not contain that item.";
+    }
+
+    public void removeWeapon(Human human, String[] arr) {
+        if(arr[0].equals("dagger")) human.strength = human.strength - 1;
+        if(arr[0].equals("sword")) human.strength = human.strength - 3;
+        arr[0] = "no weapon";
     }
 
     public String printInventory() {
         StringBuilder sb = new StringBuilder();
-        for(int i=0; i<inventory.size(); i++) {
+        for (String s : inventory) {
             sb.append(": ");
-            sb.append(inventory.get(i));
+            sb.append(s);
             sb.append(" ");
         }
         return sb.toString();
@@ -93,13 +97,13 @@ public class Human {
         return "!*!ThUd!*! " + human.name + " attacks " + goblin.name + " for a damage of: " + hitStrength;
     }
 
-    public String move(HashMap<Integer, String[]> grid, int[] arr, String s) {
+    public String move(HashMap<Integer, String[]> grid, HashMap<Integer, int[]> hash, String s) {
         switch (s.toLowerCase()) {
             case "i":
                 if (this.row - 1 >= 1) {
                     grid.get(this.row)[this.col] = " - ";
                     this.row = this.row - 1;
-                    arr[0] = this.row;
+                    hash.get(0)[0] = this.row;
                     if (grid.get(this.row)[this.col].equals(" G ")) {
                         grid.get(this.row)[this.col] = "G:H";
                     } else if (grid.get(this.row)[this.col].equals(" - ")) {
@@ -113,7 +117,7 @@ public class Human {
                 if (this.row + 1 < 16) {
                     grid.get(this.row)[this.col] = " - ";
                     this.row = this.row + 1;
-                    arr[0] = this.row;
+                    hash.get(0)[0] = this.row;
                     if (grid.get(this.row)[this.col].equals(" G ")) {
                         grid.get(this.row)[this.col] = "G:H";
                     } else if (grid.get(this.row)[this.col].equals(" - ")) {
@@ -124,10 +128,10 @@ public class Human {
                 }
                 break;
             case "j":
-                if (this.col - 1 >= 1) {
+                if (this.col - 1 >= 0) {
                     grid.get(this.row)[this.col] = " - ";
                     this.col = this.col - 1;
-                    arr[1] = this.col;
+                    hash.get(0)[1] = this.col;
                     if (grid.get(this.row)[this.col].equals(" G ")) {
                         grid.get(this.row)[this.col] = "G:H";
                     } else if (grid.get(this.row)[this.col].equals(" - ")) {
@@ -142,7 +146,7 @@ public class Human {
                 if (this.col + 1 < 16) {
                     grid.get(this.row)[this.col] = " - ";
                     this.col = this.col + 1;
-                    arr[1] = this.col;
+                    hash.get(0)[1] = this.col;
                     if (grid.get(this.row)[this.col].equals(" G ")) {
                         grid.get(this.row)[this.col] = "G:H";
                     } else if (grid.get(this.row)[this.col].equals(" - ")) {
@@ -172,16 +176,3 @@ public class Human {
 }
 
 
-/*
-                     if(grid.get(arr[0] - 1)[arr[1]].equals(" G ")) {
-                    grid.get(arr[0])[arr[1]] = " - ";
-                    arr[0] = arr[0] - 1;
-                    grid.get(arr[0])[arr[1]] = "G:H";
-
-
-                     public String attack(Human human, Goblin goblin) {
-        double humanAttack = 1 + (Math.random() * human.strength);
-        return "Human attacks Goblin for " + (int) humanAttack + " health points!";
-    }
-
- */
