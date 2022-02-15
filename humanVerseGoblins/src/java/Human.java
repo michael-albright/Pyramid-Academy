@@ -8,6 +8,13 @@ public class Human {
     String name;
     ArrayList<String> inventory = new ArrayList<>();
 
+    Human(ArrayList<String> inventory) {
+        this.inventory = inventory;
+    }
+
+    Human() {
+
+    }
 
     Human(int health, int strength, int row, int col, String name) {
         this.health = health;
@@ -29,13 +36,12 @@ public class Human {
             System.out.println("You have found a rare item. Press any button to see what it is!");
             scan.next();
             human.health = human.health - 5;
-            System.out.println("Sorry " + human.name + " the chest contained a bomb and it blew taking away 5 health points.");
+            System.out.println("The treasure chest contained a bomb and it blew up taking away 5 health points.");
             land.grid.get(human.row)[human.col] = " H ";
             if(human.health < 1) {
                 System.out.println("Sorry " + human.name + " that bomb killed you. Better luck next time.");
                 return false;
             }
-
         } else {
             human.inventory.add(str.toLowerCase());
             System.out.println("Treasure chest contained: " + str + ". It has been added to your arsenal.");
@@ -46,7 +52,6 @@ public class Human {
     }
 
     public String useItem(String str, Human human, Goblin goblin, String[] arr) {
-        String message = "";
         for (String temp : human.inventory) {
             if (temp.contains(str)) {
                 switch (str) {
@@ -80,7 +85,7 @@ public class Human {
         arr[0] = "no weapon";
     }
 
-    public String printInventory() {
+    public String printInventory(ArrayList<String> inventory) {
         StringBuilder sb = new StringBuilder();
         for (String s : inventory) {
             sb.append(": ");
@@ -164,13 +169,13 @@ public class Human {
     }
 
     public String toString(HashMap<Integer, String[]> hash) {
-        String str2 = "";
+        StringBuilder str2 = new StringBuilder();
         for(int i=0; i<hash.size(); i++) {
             for(String s : hash.get(i)) {
-                str2 += s;
+                str2.append(s);
             }
         }
-        return str2;
+        return str2.toString();
     }
 
 }

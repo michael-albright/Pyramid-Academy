@@ -36,7 +36,7 @@ public class HumanVerseGoblins {
                 boolean alive = true;
                 System.out.println(human.name + "'s health: " + human.health + "  " + human.name + "'s strength: " + human.strength);
                 if (!human.inventory.isEmpty()) {
-                    System.out.println("Your arsenal" + human.printInventory());
+                    System.out.println("Your arsenal" + human.printInventory(human.inventory));
                 }
                 System.out.println("Make a move");
                 String input = scan.next();
@@ -60,7 +60,7 @@ public class HumanVerseGoblins {
 
                     //Check arsenal for weapons and use weapons
                     if (!human.inventory.isEmpty()) {
-                        System.out.println("Your arsenal" + human.printInventory());
+                        System.out.println("Your arsenal" + human.printInventory(human.inventory));
                         System.out.println("Would you like to use any items from your arsenal during this battle? (y or n)");
                         String in = scan.next();
 
@@ -68,7 +68,7 @@ public class HumanVerseGoblins {
                         if (in.equalsIgnoreCase("y")) {
                             while (tempWeapon[0].equals("no weapon")) {
                                 System.out.println("Which item would you like to use?");
-                                System.out.println("Your arsenal" + human.printInventory());
+                                System.out.println("Your arsenal" + human.printInventory(human.inventory));
                                 String item = scan.next();
                                 System.out.println(human.useItem(item, human, goblin, tempWeapon));
                             }

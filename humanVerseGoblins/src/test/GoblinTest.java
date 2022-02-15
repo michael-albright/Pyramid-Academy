@@ -3,15 +3,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GoblinTest {
 
+    Goblin goblin;
+
     @BeforeEach
     void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
+        goblin = new Goblin();
     }
 
     @Test
     void attack() {
+    }
+
+    @AfterEach
+    void tearDown() {
     }
 }
