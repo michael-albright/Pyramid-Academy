@@ -104,6 +104,7 @@ public class Human {
 
     public String move(HashMap<Integer, String[]> grid, HashMap<Integer, int[]> hash, String s) {
         switch (s.toLowerCase()) {
+            ///// UP ///////
             case "i":
                 if (this.row - 1 >= 1) {
                     grid.get(this.row)[this.col] = " - ";
@@ -113,11 +114,14 @@ public class Human {
                         grid.get(this.row)[this.col] = "G:H";
                     } else if (grid.get(this.row)[this.col].equals(" - ")) {
                         grid.get(this.row)[this.col] = " H ";
+
                     } else {
                         grid.get(this.row)[this.col] = "[H]";
                     }
                 }
+
                 break;
+            ///// DOWN ///////
             case "k":
                 if (this.row + 1 < 16) {
                     grid.get(this.row)[this.col] = " - ";
@@ -132,6 +136,7 @@ public class Human {
                     }
                 }
                 break;
+            ///// LEFT ///////
             case "j":
                 if (this.col - 1 >= 0) {
                     grid.get(this.row)[this.col] = " - ";
@@ -147,8 +152,9 @@ public class Human {
                     }
                 }
                 break;
+            ///// RIGHT ///////
             case "l":
-                if (this.col + 1 < 16) {
+                if (this.col + 1 < 15) {
                     grid.get(this.row)[this.col] = " - ";
                     this.col = this.col + 1;
                     hash.get(0)[1] = this.col;

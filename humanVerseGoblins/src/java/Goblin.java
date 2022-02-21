@@ -6,15 +6,17 @@ public class Goblin  {
     int row;
     int col;
     String name;
+    boolean move;
     String[] inventory;
 
 
-    Goblin(int health, int strength, int row, int col, String name) {
+    Goblin(int health, int strength, int row, int col, String name, boolean move) {
         this.health = health;
         this.strength = strength;
         this.row = row;
         this.col = col;
         this.name = name;
+        this.move = move;
     }
     Goblin() {
 
@@ -26,6 +28,8 @@ public class Goblin  {
         human.health = human.health - hitStrength;
         return "!*!SmAsH!*! " + goblin.name + " attacks " + human.name + " for a damage of: " + hitStrength;
     }
+
+
 
 
 

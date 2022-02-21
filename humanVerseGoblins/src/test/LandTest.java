@@ -14,7 +14,7 @@ class LandTest {
     HashMap<Integer, int[]> hash4 = new HashMap<>();
     ArrayList<Goblin> arrList = new ArrayList<>();
     ArrayList<Treasure> arrList2 = new ArrayList<>();
-    Goblin goblin = new Goblin(5, 4, 5, 4, "Goblin");
+    Goblin goblin = new Goblin(5, 4, 5, 4, "Goblin", true);
     Treasure treasure = new Treasure();
 
 

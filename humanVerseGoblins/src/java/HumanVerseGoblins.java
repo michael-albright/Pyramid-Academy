@@ -25,9 +25,13 @@ public class HumanVerseGoblins {
             HashMap<Integer, int[]> goblinCoords = new HashMap<>();
             land.addElement(10, goblinCoords, " G ");
             for (int i = 0; i < goblinCoords.size(); i++) {
-                land.goblins.add(new Goblin(land.randomNum(2, 8), land.randomNum(2, 6), goblinCoords.get(i)[0], goblinCoords.get(i)[1], land.randomGoblinName()));
+                land.goblins.add(new Goblin(land.randomNum(2, 8), land.randomNum(2, 6), goblinCoords.get(i)[0], goblinCoords.get(i)[1], land.randomGoblinName(), land.setGoblinMovement()));
             }
-
+            System.out.println("\nGameplay: \nThe object of the game is to kill all the Goblins before your \n" +
+                    "health runs out. \n\nTreasures will appear after each Goblin you take down as reward! \n\n" +
+                    "'i' -> move up, 'k' -> move down, 'j' -> move left, 'l' -> move right.. \n\nGood Luck!!\n");
+            System.out.println("Press any key to continue");
+            scan.next();
             System.out.println(land.toString(land.grid));
             boolean playGame = true;
 
@@ -38,6 +42,7 @@ public class HumanVerseGoblins {
                 if (!human.inventory.isEmpty()) {
                     System.out.println("Your arsenal" + human.printInventory(human.inventory));
                 }
+
                 System.out.println("Make a move");
                 String input = scan.next();
                 System.out.println(human.move(land.grid, humanCoords, input));
@@ -130,6 +135,173 @@ public class HumanVerseGoblins {
         }
     }
 }
+
+/*
+                for(Goblin i : land.goblins) {
+                    if (i.move) {
+                        /////// UP ///////
+                        while(true) {
+                            if (human.row < i.row && i.row - 1 >= 1) {
+                                if (!land.grid.get(i.row - 1)[i.col].equals(" G ")) {
+                                    if (land.grid.get(i.row - 1)[i.col].equals(" - ")) {
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row - 1)[i.col] = " G ";
+                                        i.row = i.row - 1;
+                                        break;
+                                    } else if (land.grid.get(i.row - 1)[i.col].equals(" H ")) {
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row - 1)[i.col] = "G:H";
+                                        i.row = i.row - 1;
+                                        break;
+                                    } else {
+                                        System.out.println("A goblin has destroyed the treasure.");
+                                        land.testForElement(treasureCoords, goblinCoords);
+                                        land.removeElement(treasureCoords, goblinCoords);
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row - 1)[i.col] = " G ";
+                                        i.row = i.row - 1;
+                                        break;
+                                    }
+                                } else {
+                                    int x = 2;
+                                    while (true) {
+                                        if (land.grid.get(i.row - x)[i.col].equals(" - ")) {
+                                            land.grid.get(i.row)[i.col] = " - ";
+                                            land.grid.get(i.row - x)[i.col] = " G ";
+                                            i.row = i.row - x;
+                                            break;
+                                        }
+                                        x++;
+                                    }
+                                    break;
+                                }
+                            }
+                            /////// DOWN ///////
+                            if (human.row > i.row && i.row + 1 < 16) {
+                                if (!land.grid.get(i.row + 1)[i.col].equals(" G ")) {
+                                    if (land.grid.get(i.row + 1)[i.col].equals(" - ")) {
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row + 1)[i.col] = " G ";
+                                        i.row = i.row + 1;
+                                        break;
+                                    } else if (land.grid.get(i.row + 1)[i.col].equals(" H ")) {
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row + 1)[i.col] = "G:H";
+                                        i.row = i.row + 1;
+                                        break;
+                                    } else {
+                                        System.out.println("A goblin has destroyed the treasure.");
+                                        land.testForElement(treasureCoords, goblinCoords);
+                                        land.removeElement(treasureCoords, goblinCoords);
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row + 1)[i.col] = " G ";
+                                        i.row = i.row + 1;
+                                        break;
+                                    }
+                                } else {
+                                    int x = 2;
+                                    while (true) {
+                                        if (land.grid.get(i.row + x)[i.col].equals(" - ")) {
+                                            land.grid.get(i.row)[i.col] = " - ";
+                                            land.grid.get(i.row + x)[i.col] = " G ";
+                                            i.row = i.row + x;
+                                            break;
+                                        }
+                                        x++;
+                                    }
+                                    break;
+                                }
+
+                            }
+                            /////// LEFT ///////
+                            if (human.col < i.col && i.col - 1 >= 0) {
+                                if (!land.grid.get(i.row)[i.col - 1].equals(" G ")) {
+                                    if (land.grid.get(i.row)[i.col - 1].equals(" - ")) {
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row)[i.col - 1] = " G ";
+                                        i.col = i.col - 1;
+                                        break;
+                                    } else if (land.grid.get(i.row)[i.col - 1].equals(" H ")) {
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row)[i.col - 1] = "G:H";
+                                        i.col = i.col - 1;
+                                        break;
+                                    } else {
+                                        System.out.println("A goblin has destroyed the treasure.");
+                                        land.testForElement(treasureCoords, goblinCoords);
+                                        land.removeElement(treasureCoords, goblinCoords);
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row)[i.col - 1] = " G ";
+                                        i.col = i.col - 1;
+                                        break;
+                                    }
+                                } else {
+                                    int x = 2;
+                                    while (true) {
+                                        if (land.grid.get(i.row)[i.col - x].equals(" - ")) {
+                                            land.grid.get(i.row)[i.col] = " - ";
+                                            land.grid.get(i.row)[i.col - x] = " G ";
+                                            i.col = i.col - x;
+                                            break;
+                                        }
+                                        x++;
+                                    }
+                                    break;
+                                }
+                            }
+                            /////// RIGHT ///////
+                            if (human.col > i.col && i.col + 1 < 15) {
+                                if (!land.grid.get(i.row)[i.col + 1].equals(" G ")) {
+                                    if (land.grid.get(i.row)[i.col + 1].equals(" - ")) {
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row)[i.col + 1] = " G ";
+                                        i.col = i.col + 1;
+                                        break;
+                                    } else if (land.grid.get(i.row)[i.col + 1].equals(" H ")) {
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row)[i.col + 1] = "G:H";
+                                        i.col = i.col + 1;
+                                        break;
+                                    } else {
+                                        System.out.println("A goblin has destroyed the treasure.");
+                                        land.testForElement(treasureCoords, goblinCoords);
+                                        land.removeElement(treasureCoords, goblinCoords);
+                                        land.grid.get(i.row)[i.col] = " - ";
+                                        land.grid.get(i.row)[i.col + 1] = " G ";
+                                        i.col = i.col + 1;
+                                        break;
+                                    }
+                                } else {
+                                    int x = 2;
+                                    while (true) {
+                                        if (land.grid.get(i.row)[i.col + x].equals(" - ")) {
+                                            land.grid.get(i.row)[i.col] = " - ";
+                                            land.grid.get(i.row)[i.col + x] = " G ";
+                                            i.col = i.col + x;
+                                            break;
+                                        }
+                                        x++;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+                }
+                for(Goblin i : land.goblins) {
+                    for(int j=0; j< goblinCoords.size(); j++) {
+                        if(goblinCoords.get(j)[0] != i.row || goblinCoords.get(j)[1] != i.col) {
+                            int[] tempArr = {i.row, i.col};
+                            goblinCoords.replace(j, tempArr);
+                        }
+                    }
+                }
+
+
+
+
+ */
 
 
 
