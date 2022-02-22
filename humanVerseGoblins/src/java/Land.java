@@ -5,10 +5,6 @@ public class Land {
     ArrayList<Goblin> goblins = new ArrayList<>();
     ArrayList<Treasure> treasureChests = new ArrayList<>();
 
-    public void findMovingGoblins() {
-
-    }
-
     public boolean setGoblinMovement() {
         double x = 1 + Math.random() * 2;
         return ((int) x==1);
@@ -21,19 +17,6 @@ public class Land {
                     " - ", " - ", " - ", " - ", " - ", " - ", " - ", " - ", "\n"});
         }
     }
-/*
-    public boolean testForElement(HashMap<Integer, int[]> hash1_coords, HashMap<Integer, int[]> hash2_coords) {
-        int[] temp = { 111 };
-        for (int i=0; i < hash1_coords.size(); i++) {
-            if (Arrays.equals(hash1_coords.get(i), hash2_coords.get(0))) {
-                hash1_coords.put(i, temp);
-                return true;
-            }
-        }
-        return false;
-    }
-
- */
 
     public boolean testForElement(HashMap<Integer, int[]> hashToEdit, HashMap<Integer, int[]> hashToCompare) {
         int[] temp = { 111 };
@@ -47,17 +30,6 @@ public class Land {
         }
         return false;
     }
-/*
-    public void removeElement(HashMap<Integer, int[]> gobCoords, HashMap<Integer, int[]> humanCoords) {
-        for (int i=0; i<gobCoords.size(); i++) {
-            if (Arrays.equals(gobCoords.get(i), humanCoords.get(0))) {
-                gobCoords.remove(i);
-                break;
-            }
-        }
-    }
-
- */
 
     public void removeElement(HashMap<Integer, int[]> hashToRemove, HashMap<Integer, int[]> hashToCompare) {
         for (int i=0; i<hashToRemove.size(); i++) {
@@ -145,4 +117,27 @@ public class Land {
 
 }
 
+/*
+    public void removeElement(HashMap<Integer, int[]> gobCoords, HashMap<Integer, int[]> humanCoords) {
+        for (int i=0; i<gobCoords.size(); i++) {
+            if (Arrays.equals(gobCoords.get(i), humanCoords.get(0))) {
+                gobCoords.remove(i);
+                break;
+            }
+        }
+    }
 
+ */
+/*
+    public boolean testForElement(HashMap<Integer, int[]> hash1_coords, HashMap<Integer, int[]> hash2_coords) {
+        int[] temp = { 111 };
+        for (int i=0; i < hash1_coords.size(); i++) {
+            if (Arrays.equals(hash1_coords.get(i), hash2_coords.get(0))) {
+                hash1_coords.put(i, temp);
+                return true;
+            }
+        }
+        return false;
+    }
+
+ */
