@@ -22,7 +22,7 @@ public class FunctionalHangman {
             }
     }
 
-    //////////****************Methods*************************//////////
+    //////////****************Methods*****************//////////
 
     public static void gameSetUp(Scanner scan) throws IOException {
         String input = String.valueOf(scan.next().toLowerCase().charAt(0));
@@ -419,110 +419,4 @@ public class FunctionalHangman {
         return word;
     }
 }
-
-
-
-
-
-
-
-/*
-
-/*
-    public static void clearPlayersName() throws IOException {
-        Charset ascii = StandardCharsets.US_ASCII;
-        List<String> tempList = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/tempNameAndScore"));
-        tempList.clear();
-        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/tempNameAndScore"), tempList, ascii);
-
-    }
-
-
-
-
-
-
-
-        if(tempList.get(1).equals("e")) {
-            //Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/easyScores"), List.of(score), ascii);
-            List<String> easyScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/easyScores"));
-            ArrayList<Integer> compareScores = new ArrayList<>();
-            IntStream.range(0, easyScores.size())
-                    .forEach(a -> {
-                        compareScores.add(Integer.valueOf(easyScores.get(a)));
-                    });
-            //ArrayList<Integer> scoresToInt = convertStringListToIntList(easyScores, Integer::parseInt);
-            Collections.sort(compareScores);
-            IntStream.range(0, compareScores.size())
-                            .forEach(a -> {
-                                if(score > compareScores.get(a)) {
-                                    compareScores.add(a, score);
-                                    try {
-                                        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/easyHighScores"), finalScore, ascii);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            });
-
-
-
-
-
-
-
-        } else {
-            Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/hardHighScores"), finalScore, ascii);
-        }
-    }
-
- */
-
-    /*
-     IntStream.range(0, easyScores.size())
-                    .filter(a -> {
-                            compareScores.add(Integer.valueOf(easyScores.get(a)));
-                    });
-
-
-
-
-
-    public static <T, U> ArrayList<U> convertStringListToIntList(List<T> listOfString, Function<T, U> function)  {
-        return (ArrayList<U>) listOfString.stream()
-                .map(function)
-                .collect(Collectors.toList());
-    }
-
- */
-
-
-/*
-    public static boolean checkForValidGuess(String s) {
-        int checkForLetter = s.charAt(0);
-        return checkForLetter >= 97 && checkForLetter <= 122 && s.length() <= 1;
-    }
-
-
-//checkGuess former
-for (int i = 0; i < magicWord.size(); i++) {
-                if (magicWord.get(i).equals(s)) {
-                    correct.set(i, s);
-                }
-            }
-
-
-
-
-
-    public static String checkForValidGuess(Scanner scan) {
-        String guess = scan.next().toLowerCase();
-        String invalid = "That is not a valid guess.";
-        int checkForLetter = guess.charAt(0);
-        if(checkForLetter >= 97 && checkForLetter <= 122 && guess.length() == 1) {
-            return guess;
-        }
-        return invalid;
-    }
- */
 
