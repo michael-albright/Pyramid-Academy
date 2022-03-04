@@ -5,11 +5,6 @@ public class Land {
     ArrayList<Goblin> goblins = new ArrayList<>();
     ArrayList<Treasure> treasureChests = new ArrayList<>();
 
-    public boolean setGoblinMovement() {
-        double x = 1 + Math.random() * 2;
-        return ((int) x==1);
-    }
-
     public void createGameBoard() {
         grid.put(0, new String[]{"\n            Humans Verse Goblins\n"});
         for (int i = 1; i < 16; i++) {
@@ -113,6 +108,11 @@ public class Land {
             }
         }
         return true;
+    }
+
+    public boolean setGoblinMovement() {
+        double x = 1 + Math.random() * 2;
+        return ((int) x==1);
     }
 
 }

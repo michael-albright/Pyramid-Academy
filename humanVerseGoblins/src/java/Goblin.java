@@ -6,8 +6,8 @@ public class Goblin  {
     int row;
     int col;
     String name;
-    boolean move;
-    String[] inventory;
+    //boolean move;
+
 
 
     Goblin(int health, int strength, int row, int col, String name, boolean move) {
@@ -16,7 +16,7 @@ public class Goblin  {
         this.row = row;
         this.col = col;
         this.name = name;
-        this.move = move;
+        //this.move = move;
     }
     Goblin() {
 

@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.*;
 
 public class HumanVerseGoblins {
@@ -83,6 +85,8 @@ public class HumanVerseGoblins {
                     }
                     // Battle loop
                     while (alive) {
+
+                                /////// HUMAN ATTACKS ////////
                         System.out.println(human.attack(human, goblin));
                         if (goblin.health > 0) {
                             System.out.println(human.name + "'s health: " + human.health + "  " + goblin.name + "'s health: " + goblin.health);
@@ -95,6 +99,8 @@ public class HumanVerseGoblins {
                                 playGame = false;
                                 break;
                             }
+
+                                    /////// TREASURE STUFF ///////
                             if (!tempWeapon[0].equals("no weapon")) {
                                 human.removeWeapon(human, tempWeapon);
                             }
@@ -112,6 +118,9 @@ public class HumanVerseGoblins {
                             System.out.println(land.toString(land.grid));
                             break;
                         }
+
+
+                                /////// GOBLIN ATTACKS ///////
                         System.out.println(goblin.attack(goblin, human));
                         if (human.health > 0) {
                             System.out.println(human.name + "'s health: " + human.health + "  " + goblin.name + "'s health: " + goblin.health);
