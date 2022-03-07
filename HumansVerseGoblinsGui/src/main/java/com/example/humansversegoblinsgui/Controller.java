@@ -6,7 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
+
 
 import java.util.Arrays;
 
@@ -48,40 +48,27 @@ public class Controller {
         setTreasureImage();
         outputHumanStatus();
         outputGoblinStatus();
-        //setPaneBgColor();
     }
-/*
-    @FXML
-    public void setPaneBgColor() {
-        battleText.setStyle("fx-text-inner-color: blue;");
-        statusText.setStyle("fx-text-inner-color: blue;");
-    }
-
- */
 
                 ////// setEntity AND setEntityCoords should be a universal method in Entity and ran here
                                  ///// Add Entities to GUI //////
     @FXML
     public void setHumanImage() {
         int[] arr = game.placeElement();
-        //System.out.println("Human new" + Arrays.toString(arr));
         humImg.setImage(new Image("human.png"));
         humImg.setTranslateX(arr[0]);
         humImg.setTranslateY(arr[1]);
         human.setHumanCoords(arr);
-        //System.out.println("Human coords" + Arrays.toString(human.humanCoords));
     }
     @FXML
     public void setGoblinImage() {
         gobImg.setImage(new Image("goblin.png"));
         while (true) {
             int[] arr = game.placeElement();
-            //System.out.println("Gobl new" + Arrays.toString(arr));
-            if (!Arrays.equals(arr, human.humanCoords)) {
+            if (!Arrays.equals(arr, human.humanCoords) && !Arrays.equals(arr, treasure.treasureCoords)) {
                 gobImg.setTranslateX(arr[0]);
                 gobImg.setTranslateY(arr[1]);
                 goblin.setGoblinCoords(arr);
-                //System.out.println("Goblin coords " + Arrays.toString(goblin.goblinCoords));
                 break;
             }
             System.out.println("goblin same");
@@ -94,19 +81,15 @@ public class Controller {
         }
         while (true) {
             int[] arr = game.placeElement();
-            //System.out.println("Treas new" + Arrays.toString(arr));
             if (!Arrays.equals(arr, human.humanCoords) && !Arrays.equals(arr, goblin.goblinCoords)) {
                 treasImg.setTranslateX(arr[0]);
                 treasImg.setTranslateY(arr[1]);
                 treasure.setTreasureCoords(arr);
-                //System.out.println("Treas coords " + Arrays.toString(treasure.treasureCoords));
                 break;
             }
             System.out.println("treasure same");
         }
     }
-    // gobImg.getTranslateX() != arr[0] || gobImg.getTranslateY() != arr[1] && humImg.getTranslateX() != arr[0] || humImg.getTranslateY() != arr[1]
-
 
                             ////////    BATTLE    ///////////
     @FXML
@@ -165,19 +148,21 @@ public class Controller {
                                 ////////// TREASURE STUFF ////////////
     @FXML
     public void openTreasure() {
-        // .resizerelocate()  or
         treasImg.setVisible(false);
         treasImg.setManaged(false);
         treasure.treasureCoords[0] = 370;
         treasure.treasureCoords[1] = 111;
-        //gameBoard.getChildren().remove(treasImg);
         String booty = treasure.treasures[game.randomNum(0, 22)];
         if (booty.equals(treasure.potion)) {
             battleText.appendText("*** Rare Item! ***\n\nThe Magic Potion rasied your health by 10!\n\n");
             human.health = human.health + 10;
+            outputHumanStatus();
+            outputGoblinStatus();
         } else if (booty.equals(treasure.bomb)) {
             battleText.appendText("?%&$!BaAaAaNG!$&%?\n\nThe treasure chest blew!\nYou lost 5 health points.\n\n");
             human.health = human.health - 5;
+            outputHumanStatus();
+            outputGoblinStatus();
             if (human.health <= 0) battleText.appendText("Sorry, the bOmB killed you.\n\nGame Over.");
         } else {
             if(human.arsenal.contains(booty)) {
@@ -231,16 +216,9 @@ public class Controller {
 
     @FXML
     public boolean checkForUsedWeapon() {
-        if (human.strength == 5) {
-            human.strength = human.strength + 1;
-            return true;
-        }
-        if (human.strength == 7) {
-            human.strength = human.strength + 3;
-            return true;
-        }
-        if (human.strength == 8) {
+        if (human.strength == 5 || human.strength == 8 || human.strength == 7) {
             human.strength = 4;
+            //human.strength = human.strength - 1;
             return true;
         }
         return false;
@@ -266,196 +244,81 @@ public class Controller {
     }
     @FXML
     public void moveRight() {
-        System.out.println("Goblin coords " + Arrays.toString(goblin.goblinCoords));
-        System.out.println("Treas coords " + Arrays.toString(treasure.treasureCoords));
         String str = game.checkForOpenSpace("right", human, goblin, treasure);
         switch (str) {
             case "move" -> {
                 humImg.setTranslateX(humImg.getTranslateX() + 37);
                 setHumanCoords();
-                System.out.println(Arrays.toString(human.humanCoords));
             }
             case "goblin" -> {
-                //humImg.setTranslateX(humImg.getTranslateX() + 37);
                 battleText.appendText("\n** Human Verse Goblin **\n\n");
                 humanVsGoblin();
-                System.out.println(Arrays.toString(human.humanCoords));
             }
             case "treasure" -> {
                 humImg.setTranslateX(humImg.getTranslateX() + 37);
                 setHumanCoords();
                 openTreasure();
-                System.out.println(Arrays.toString(human.humanCoords));
             }
         }
     }
 
     @FXML
     public void moveLeft() {
-        System.out.println("Goblin coords " + Arrays.toString(goblin.goblinCoords));
-        System.out.println("Treas coords " + Arrays.toString(treasure.treasureCoords));
         String temp = game.checkForOpenSpace("left", human, goblin, treasure);
         switch (temp) {
             case "move" -> {
                 humImg.setTranslateX(humImg.getTranslateX() - 37);
                 setHumanCoords();
-                System.out.println(Arrays.toString(human.humanCoords));
             }
             case "goblin" -> {
-                //humImg.setTranslateX(humImg.getTranslateX() - 37);
                 battleText.appendText("\n** Human Verse Goblin **\n\n");
                 humanVsGoblin();
-                System.out.println(Arrays.toString(human.humanCoords));
             }
             case "treasure" -> {
                 humImg.setTranslateX(humImg.getTranslateX() - 37);
                 setHumanCoords();
                 openTreasure();
-                System.out.println(Arrays.toString(human.humanCoords));
             }
         }
     }
 
     @FXML
     public void moveUp() {
-        System.out.println("Goblin coords " + Arrays.toString(goblin.goblinCoords));
-        System.out.println("Treas coords " + Arrays.toString(treasure.treasureCoords));
             String temp = game.checkForOpenSpace("up", human, goblin, treasure);
             switch (temp) {
                 case "move" -> {
                     humImg.setTranslateY(humImg.getTranslateY() - 37);
                     setHumanCoords();
-                    System.out.println(Arrays.toString(human.humanCoords));
                 }
                 case "goblin" -> {
-                    //humImg.setTranslateY(humImg.getTranslateY() - 37);
                     battleText.appendText("\n** Human Verse Goblin **\n\n");
                     humanVsGoblin();
-                    System.out.println(Arrays.toString(human.humanCoords));
                 }
                 case "treasure" -> {
                     humImg.setTranslateY(humImg.getTranslateY() - 37);
                     setHumanCoords();
                     openTreasure();
-                    System.out.println(Arrays.toString(human.humanCoords));
                 }
             }
     }
 
     @FXML
     public void moveDown() {
-        System.out.println("Goblin coords " + Arrays.toString(goblin.goblinCoords));
-        System.out.println("Treas coords " + Arrays.toString(treasure.treasureCoords));
         String temp = game.checkForOpenSpace("down", human, goblin, treasure);
         switch (temp) {
             case "move" -> {
                 humImg.setTranslateY(humImg.getTranslateY() + 37);
                 setHumanCoords();
-                System.out.println(Arrays.toString(human.humanCoords));
             }
             case "goblin" -> {
-                //humImg.setTranslateY(humImg.getTranslateY() + 37);
                 battleText.appendText("\n** Human Verse Goblin **\n\n");
                 humanVsGoblin();
-                System.out.println(Arrays.toString(human.humanCoords));
             }
             case "treasure" -> {
                 humImg.setTranslateY(humImg.getTranslateY() + 37);
                 setHumanCoords();
                 openTreasure();
-                System.out.println(Arrays.toString(human.humanCoords));
             }
         }
     }
-
-
 }
-
-
-
-/*
-    @FXML
-    public void setArsenalButtons() {
-        if(human.arsenal.contains("dagger")) {
-            daggerButton.setDisable(false);
-        } else if(human.arsenal.contains("sword")) {
-            swordButton.setDisable(false);
-        } else armorButton.setDisable(false);
-    }
-
-
-
-
-      @FXML
-    public void moveRight() {
-        System.out.println("Goblin coords " + Arrays.toString(goblin.goblinCoords));
-        System.out.println("Treas coords " + Arrays.toString(treasure.treasureCoords));
-        if(game.checkForOpenSpace("right", human, goblin, treasure)) {
-            humImg.setTranslateX(humImg.getTranslateX() + 37);
-            setHumanCoords();
-            System.out.println(Arrays.toString(human.humanCoords));
-        } else if(Arrays.equals(human.humanCoords[0] + 37, , goblin.goblinCoords)) {
-                humanVsGoblin();
-        } else if (Arrays.equals(human.humanCoords, treasure.treasureCoords)) {
-            humImg.setTranslateX(humImg.getTranslateX() + 37);
-            setHumanCoords();
-            openTreasure();
-        }
-    }
-
-
-      @FXML
-    public void moveLeft() {
-        System.out.println("Goblin coords " + Arrays.toString(goblin.goblinCoords));
-        System.out.println("Treas coords " + Arrays.toString(treasure.treasureCoords));
-        if (game.checkForOpenSpace("left", human, goblin, treasure)) {
-            humImg.setTranslateX(humImg.getTranslateX() - 37);
-            int[] arr = {(int) humImg.getTranslateX(), (int) humImg.getTranslateY()};
-            human.setHumanCoords(arr);
-            System.out.println(Arrays.toString(human.humanCoords));
-        } else if(humImg.getTranslateX() - 37 == gobImg.getTranslateX() && humImg.getTranslateY() == gobImg.getTranslateY()) {
-                humanVsGoblin();
-        } else if (humImg.getTranslateX() - 37 == treasImg.getTranslateX() && humImg.getTranslateY() == treasImg.getTranslateY()) {
-            humImg.setTranslateX(humImg.getTranslateX() - 37);
-            setHumanCoords();
-            openTreasure();
-        }
-    }
-
-    @FXML
-    public void moveUp() {
-        System.out.println("Goblin coords " + Arrays.toString(goblin.goblinCoords));
-        System.out.println("Treas coords " + Arrays.toString(treasure.treasureCoords));
-        if(game.checkForOpenSpace("up", human, goblin, treasure)) {
-            humImg.setTranslateY(humImg.getTranslateY() - 37);
-            int[] arr = {(int) humImg.getTranslateX(), (int) humImg.getTranslateY()};
-            human.setHumanCoords(arr);
-            System.out.println(Arrays.toString(human.humanCoords));
-        } else if (humImg.getTranslateY() - 37 == gobImg.getTranslateY() && humImg.getTranslateX() == gobImg.getTranslateX()) {
-                humanVsGoblin();
-        } else if (humImg.getTranslateY() - 37 == treasImg.getTranslateY() && humImg.getTranslateX() == treasImg.getTranslateX()) {
-            humImg.setTranslateY(humImg.getTranslateY() - 37);
-            setHumanCoords();
-            openTreasure();
-        }
-    }
-
-    @FXML
-    public void moveDown() {
-        System.out.println("Goblin coords " + Arrays.toString(goblin.goblinCoords));
-        System.out.println("Treas coords " + Arrays.toString(treasure.treasureCoords));
-        if(game.checkForOpenSpace("down", human, goblin, treasure)) {
-            humImg.setTranslateY(humImg.getTranslateY() + 37);
-            int[] arr = {(int) humImg.getTranslateX(), (int) humImg.getTranslateY()};
-            human.setHumanCoords(arr);
-            System.out.println(Arrays.toString(human.humanCoords));
-        } else if (humImg.getTranslateY() + 37 == gobImg.getTranslateY() && humImg.getTranslateX() == gobImg.getTranslateX()) {
-            humanVsGoblin();
-        } else if (humImg.getTranslateY() + 37 == treasImg.getTranslateY() && humImg.getTranslateX() == treasImg.getTranslateX()) {
-            humImg.setTranslateY(humImg.getTranslateY() + 37);
-            setHumanCoords();
-            openTreasure();
-        }
-    }
-
- */

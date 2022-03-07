@@ -36,14 +36,6 @@ public class GameSetUp {
         return "move";
     }
 
-    /*
-    return !Arrays.equals(new int[]{x, human.humanCoords[1]}, goblin.goblinCoords)
-                && !Arrays.equals(new int[]{x, human.humanCoords[1]}, treasure.treasureCoords)
-                && !Arrays.equals(new int[]{human.humanCoords[0], x}, goblin.goblinCoords)
-                && !Arrays.equals(new int[]{human.humanCoords[0], x}, treasure.treasureCoords);
-     */
-
-
     public int[] placeElement() {
         int x = randomNum(0, 8) * 37;
         int y = randomNum(0, 5) * 37;
@@ -54,22 +46,5 @@ public class GameSetUp {
         double x = i + Math.random() * (j - i);
         return (int) x;
     }
-
 }
 
-
-
- /*
-      //System.out.println(Arrays.toString(new int[]{x, human.humanCoords[1]}));
-
-
-    public String checkWhichEntity() {
-        if(entity.equals("Goblin")) {
-            whichEntity = "Goblin";
-        } else {
-            whichEntity = "Treasure";
-        }
-        return whichEntity;
-    }
-
-     */
