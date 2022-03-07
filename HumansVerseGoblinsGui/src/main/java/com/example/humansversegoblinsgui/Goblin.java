@@ -20,6 +20,6 @@ public class Goblin {
         double x = 1 + Math.random() * goblin.strength;
         int hitStrength = (int) x;
         human.health = human.health - hitStrength;
-        return "!*!bAnG!*! The Goblin attacks for a damage of: " + hitStrength;
+        return "\n!*!bAnG!*! The Goblin attacks for a damage of: " + hitStrength;
     }
 }

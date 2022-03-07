@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -8,39 +9,60 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gameBoard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.humansversegoblinsgui.Controller">
+<AnchorPane fx:id="gameBoard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="600.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.humansversegoblinsgui.Controller">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="84.0" layoutY="5.0" prefHeight="37.0" prefWidth="463.0" text="Humans Verse Goblins">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="84.0" layoutY="5.0" prefHeight="37.0" prefWidth="463.0" style="-fx-background-color: gray;" text="Humans Verse Goblins">
          <font>
             <Font name="Copperplate" size="35.0" />
          </font>
       </Label>
       <Rectangle fx:id="map" arcHeight="5.0" arcWidth="5.0" fill="#b09253ba" height="259.0" layoutX="20.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="370.0" />
-      <Button fx:id="swordButton" disable="true" layoutX="410.0" layoutY="300.0" mnemonicParsing="false" onAction="#useSword" prefHeight="45.0" prefWidth="161.0" text="Sword">
+      <Button fx:id="swordButton" disable="true" layoutX="100.0" layoutY="340.0" mnemonicParsing="false" onAction="#useSword" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: beige;" text="Sword">
+         <font>
+            <Font name="Copperplate" size="13.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Button>
+      <Button fx:id="daggerButton" disable="true" layoutX="25.0" layoutY="340.0" mnemonicParsing="false" onAction="#useDagger" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: beige;" text="Dagger">
+         <font>
+            <Font name="Copperplate" size="13.0" />
+         </font></Button>
+      <Button fx:id="armorButton" disable="true" layoutX="175.0" layoutY="340.0" mnemonicParsing="false" onAction="#useArmor" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: beige;" text="Armor">
+         <font>
+            <Font name="Copperplate" size="13.0" />
+         </font></Button>
+      <Label alignment="CENTER" layoutX="23.0" layoutY="315.0" prefHeight="20.0" prefWidth="219.0" text="Arsenal">
          <font>
             <Font name="Copperplate" size="18.0" />
-         </font></Button>
-      <Button fx:id="daggerButton" disable="true" layoutX="410.0" layoutY="245.0" mnemonicParsing="false" onAction="#useDagger" prefHeight="45.0" prefWidth="161.0" text="Dagger">
-         <font>
-            <Font name="Copperplate" size="18.0" />
-         </font></Button>
-      <Button fx:id="armorButton" disable="true" layoutX="410.0" layoutY="355.0" mnemonicParsing="false" onAction="#useArmor" prefHeight="45.0" prefWidth="161.0" text="Armor">
-         <font>
-            <Font name="Copperplate" size="18.0" />
-         </font></Button>
-      <Label alignment="CENTER" layoutX="440.0" layoutY="211.0" prefHeight="31.0" prefWidth="116.0" text="Arsenal">
-         <font>
-            <Font name="Copperplate" size="26.0" />
          </font>
       </Label>
       <ImageView fx:id="humImg" fitHeight="37.0" fitWidth="37.0" layoutX="20.0" layoutY="50.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="gobImg" fitHeight="37.0" fitWidth="37.0" layoutX="20.0" layoutY="50.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
-      <Button contentDisplay="CENTER" layoutX="492.5" layoutY="100.0" mnemonicParsing="false" onAction="#moveRight" prefHeight="45.0" prefWidth="80.0" text="Right" />
-      <Button contentDisplay="CENTER" layoutX="450.0" layoutY="150.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="45.0" prefWidth="80.0" text="Down" />
-      <Button contentDisplay="CENTER" layoutX="407.5" layoutY="100.0" mnemonicParsing="false" onAction="#moveLeft" prefHeight="45.0" prefWidth="80.0" text="Left" />
-      <Button contentDisplay="CENTER" layoutX="450.0" layoutY="50.0" mnemonicParsing="false" onAction="#moveUp" prefHeight="45.0" prefWidth="80.0" text="Up" />
+      <Button contentDisplay="CENTER" layoutX="354.0" layoutY="350.0" mnemonicParsing="false" onAction="#moveRight" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: beige;" text="Right">
+         <font>
+            <Font name="Copperplate" size="13.0" />
+         </font></Button>
+      <Button contentDisplay="CENTER" layoutX="305.0" layoutY="379.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: beige;" text="Down">
+         <font>
+            <Font name="Copperplate" size="13.0" />
+         </font></Button>
+      <Button contentDisplay="CENTER" layoutX="255.0" layoutY="350.0" mnemonicParsing="false" onAction="#moveLeft" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: beige;" text="Left">
+         <font>
+            <Font name="Copperplate" size="13.0" />
+         </font></Button>
+      <Button contentDisplay="CENTER" layoutX="305.0" layoutY="321.0" mnemonicParsing="false" onAction="#moveUp" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: beige;" text="Up">
+         <font>
+            <Font name="Copperplate" size="12.0" />
+         </font></Button>
       <ImageView fx:id="treasImg" fitHeight="37.0" fitWidth="37.0" layoutX="20.0" layoutY="50.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
-      <TextArea fx:id="statusText" layoutX="20.0" layoutY="320.0" prefHeight="84.0" prefWidth="116.0" />
-      <TextArea fx:id="battleText" layoutX="141.0" layoutY="320.0" prefHeight="84.0" prefWidth="250.0" wrapText="true" />
+      <TextArea fx:id="statusText" editable="false" layoutX="459.0" layoutY="321.0" prefHeight="84.0" prefWidth="124.0" style="-fx-background-color: black;">
+         <font>
+            <Font name="Copperplate" size="11.0" />
+         </font></TextArea>
+      <TextArea fx:id="battleText" editable="false" layoutX="402.0" layoutY="50.0" prefHeight="259.0" prefWidth="179.0" style="-fx-background-color: black;" wrapText="true">
+         <font>
+            <Font name="Copperplate" size="11.0" />
+         </font></TextArea>
    </children>
 </AnchorPane>

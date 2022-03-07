@@ -1,9 +1,5 @@
 package com.example.humansversegoblinsgui;
 
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -16,9 +12,7 @@ import java.util.Arrays;
 
 
 public class Controller {
-    //Data Fields
     GameSetUp game = new GameSetUp();
-    //Land land = new Land();
     Human human;
     Goblin goblin;
     Treasure treasure;
@@ -41,8 +35,7 @@ public class Controller {
     Button swordButton;
     @FXML
     Button armorButton;
-    @FXML
-    Rectangle map;
+
 
     @FXML
     public void initialize() {
@@ -55,7 +48,16 @@ public class Controller {
         setTreasureImage();
         outputHumanStatus();
         outputGoblinStatus();
+        //setPaneBgColor();
     }
+/*
+    @FXML
+    public void setPaneBgColor() {
+        battleText.setStyle("fx-text-inner-color: blue;");
+        statusText.setStyle("fx-text-inner-color: blue;");
+    }
+
+ */
 
                 ////// setEntity AND setEntityCoords should be a universal method in Entity and ran here
                                  ///// Add Entities to GUI //////
@@ -114,7 +116,7 @@ public class Controller {
             outputHumanStatus();
             outputGoblinStatus();
             if (goblin.health <= 0) {
-                battleText.appendText("You killed the Goblin!\n");
+                battleText.appendText("\nYou killed the Goblin!\n\n");
                 goblin = new Goblin(game.randomNum(1, 10), game.randomNum(1, 6));
                 setGoblinImage();
                 outputHumanStatus();
@@ -126,13 +128,13 @@ public class Controller {
                 }
                 break;
             } else {
-                battleText.appendText(goblin.attack(goblin, human) + "\n");
+                battleText.appendText(goblin.attack(goblin, human) + "\n\n");
                 if(checkForUsedArmor()) {
                     outputHumanStatus();
                     outputGoblinStatus();
                 }
                 if (human.health <= 0) {
-                    battleText.appendText("The Goblin killed you.\nGame Over.");
+                    battleText.appendText("The Goblin killed you.\n\nGame Over.");
                     human.health = 0;
                     outputHumanStatus();
                     gameBoard.getChildren().remove(humImg);
@@ -150,13 +152,14 @@ public class Controller {
     @FXML
     public void outputHumanStatus() {
         if(human.health < 0) human.health = 0;
-        statusText.setText("Your Health: " + human.health + "\n" + "Your Strength: " + human.strength);
+        statusText.setText("          Status:\nYour Health: " + human.health + "\n" + "Your Strength: " + human.strength +
+                "\n-----------------------------\n");
     }
 
     @FXML
     public void outputGoblinStatus() {
         if(goblin.health < 0) goblin.health = 0;
-        statusText.appendText("\nGoblin Health: " + goblin.health + "\n" + "Goblin Strength: " + goblin.strength);
+        statusText.appendText("Goblin Health: " + goblin.health + "\n" + "Goblin Strength: " + goblin.strength);
     }
 
                                 ////////// TREASURE STUFF ////////////
@@ -170,25 +173,25 @@ public class Controller {
         //gameBoard.getChildren().remove(treasImg);
         String booty = treasure.treasures[game.randomNum(0, 22)];
         if (booty.equals(treasure.potion)) {
-            battleText.appendText("*****You have found a rare item!*****\nThe Magic Potion rasied your health by 10!\n");
+            battleText.appendText("*** Rare Item! ***\n\nThe Magic Potion rasied your health by 10!\n\n");
             human.health = human.health + 10;
         } else if (booty.equals(treasure.bomb)) {
-            battleText.appendText("?%&$!BaAaAaNG!$&%?\nThe treasure chest blew!\nYou lost 5 health points.\n");
+            battleText.appendText("?%&$!BaAaAaNG!$&%?\n\nThe treasure chest blew!\nYou lost 5 health points.\n\n");
             human.health = human.health - 5;
-            if (human.health <= 0) battleText.appendText("Sorry, the bOmB killed you.\nGame Over.");
+            if (human.health <= 0) battleText.appendText("Sorry, the bOmB killed you.\n\nGame Over.");
         } else {
             if(human.arsenal.contains(booty)) {
-                battleText.appendText( booty + " is already in your arsenal.\n");
+                battleText.appendText( booty + " is already in your arsenal.\n\n");
             } else {
                 human.arsenal.add(booty);
                 if (booty.equals(treasure.dagger)) {
-                    battleText.appendText("The treasure chest contained a Dagger.\nIt has been added to your arsenal.\n");
+                    battleText.appendText("The treasure chest contained a Dagger.\nIt has been added to your arsenal.\n\n");
                     daggerButton.setDisable(false);
                 } else if (booty.equals(treasure.sword)) {
-                    battleText.appendText("The treasure chest contained a Sword.\nIt has been added to your arsenal.\n");
+                    battleText.appendText("The treasure chest contained a Sword.\nIt has been added to your arsenal.\n\n");
                     swordButton.setDisable(false);
                 } else {
-                    battleText.appendText("The treasure chest contained Armor.\nIt has been added to your arsenal.\n");
+                    battleText.appendText("The treasure chest contained Armor.\nIt has been added to your arsenal.\n\n");
                     armorButton.setDisable(false);
                 }
             }
@@ -198,7 +201,7 @@ public class Controller {
     @FXML
     public void useDagger() {
         human.strength = 5;
-        battleText.appendText("Your strength is up 1 for your next battle.\n");
+        battleText.appendText("Your strength is up 1 for your next battle.\n\n");
         outputHumanStatus();
         outputGoblinStatus();
         daggerButton.setDisable(true);
@@ -208,7 +211,7 @@ public class Controller {
     @FXML
     public void useSword() {
         human.strength = 7;
-        battleText.appendText("Your strength is up 3 for your next battle.\n");
+        battleText.appendText("Your strength is up 3 for your next battle.\n\n");
         outputHumanStatus();
         outputGoblinStatus();
         swordButton.setDisable(true);
@@ -220,7 +223,7 @@ public class Controller {
         human.arsenal.remove("Armor");
         human.arsenal.add("usedArmor");
         goblin.strength = 2;
-        battleText.appendText("All Goblin's strength will be a measley 2 until you are struck again.\n");
+        battleText.appendText("All Goblin's strength will be a measley 2 until you are struck again.\n\n");
         outputHumanStatus();
         outputGoblinStatus();
         armorButton.setDisable(true);
@@ -229,11 +232,11 @@ public class Controller {
     @FXML
     public boolean checkForUsedWeapon() {
         if (human.strength == 5) {
-            human.strength = 4;
+            human.strength = human.strength + 1;
             return true;
         }
         if (human.strength == 7) {
-            human.strength = 4;
+            human.strength = human.strength + 3;
             return true;
         }
         if (human.strength == 8) {
@@ -274,6 +277,7 @@ public class Controller {
             }
             case "goblin" -> {
                 //humImg.setTranslateX(humImg.getTranslateX() + 37);
+                battleText.appendText("\n** Human Verse Goblin **\n\n");
                 humanVsGoblin();
                 System.out.println(Arrays.toString(human.humanCoords));
             }
@@ -299,6 +303,7 @@ public class Controller {
             }
             case "goblin" -> {
                 //humImg.setTranslateX(humImg.getTranslateX() - 37);
+                battleText.appendText("\n** Human Verse Goblin **\n\n");
                 humanVsGoblin();
                 System.out.println(Arrays.toString(human.humanCoords));
             }
@@ -324,6 +329,7 @@ public class Controller {
                 }
                 case "goblin" -> {
                     //humImg.setTranslateY(humImg.getTranslateY() - 37);
+                    battleText.appendText("\n** Human Verse Goblin **\n\n");
                     humanVsGoblin();
                     System.out.println(Arrays.toString(human.humanCoords));
                 }
@@ -349,6 +355,7 @@ public class Controller {
             }
             case "goblin" -> {
                 //humImg.setTranslateY(humImg.getTranslateY() + 37);
+                battleText.appendText("\n** Human Verse Goblin **\n\n");
                 humanVsGoblin();
                 System.out.println(Arrays.toString(human.humanCoords));
             }
