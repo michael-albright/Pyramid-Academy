@@ -50,7 +50,6 @@ public class Controller {
         outputGoblinStatus();
     }
 
-                ////// setEntity AND setEntityCoords should be a universal method in Entity and ran here
                                  ///// Add Entities to GUI //////
     @FXML
     public void setHumanImage() {
@@ -233,8 +232,6 @@ public class Controller {
         }
         return false;
     }
-
-
 
                             //////////// MOVE HUMAN //////////  FINAL SECTION /////////
     @FXML
