@@ -1,0 +1,16 @@
+
+	*******************
+	| Boarding Ticket |
+	*******************
+	Name: Bob Greise,
+	Email: greaser34@gmail.com,
+	Phone Number: 554-389-4959,
+	Gender: Male,
+	Age: 23,
+	Origin: Los Angeles, CA,
+	Destination: San Diego, CA,
+	Departure Time: 06:00 am,
+	Departure Date: 04-09-2022,
+	Boarding Pass ID: f49ae5eb-a6a6-4047-8e7f-b94ea478e729,
+	Ticket Price: $82,
+	Estimated Time of Arrival: 60 minutes
