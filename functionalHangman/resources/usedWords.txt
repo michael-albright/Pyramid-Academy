@@ -7,3 +7,4 @@ gate
 data
 rhythm
 unworthy
+wizard

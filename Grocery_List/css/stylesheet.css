@@ -1,0 +1,68 @@
+input[type=text], select {
+    width: 60%;
+    padding:12px 20px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid rgb(12, 94, 80);
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center; 
+}
+
+select {
+    color: rgb(102, 100, 100);
+}
+
+input[type=button] {
+    width: 60%;
+    background-color: rgb(84, 109, 105);
+    padding: 10px 20px;
+    margin: 14px 0 ;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+input[type=button]:hover {
+    background-color: rgb(2, 61, 51)
+}
+
+.background {
+    background-color: rgb(212, 209, 209);
+    border-radius: 5px;
+    border: solid 1px rgb(12, 94, 80);
+    padding: 12px;
+    text-align: center; 
+}
+
+h2 {
+    text-align: center;
+    font-family: Trebuchet MS, sans-serif;
+    color:rgb(12, 94, 80)
+}
+
+.depLabel {
+    text-align: center;
+    width: 80%;
+    margin: 3px 0;
+    font-family: Trebuchet MS, sans-serif;
+    color:rgb(12, 94, 80)
+}
+
+.listBackground {
+    background-color: rgb(248, 245, 245);
+    border-radius: 5px;
+    border: solid 1px rgb(12, 94, 80);
+
+}
+
+p {
+    font-size: small;
+    font-family: Trebuchet MS, sans-serif;
+    color:rgb(51, 50, 49);
+    text-align: center;
+    padding: 8px 2px;
+}
+
+
+
