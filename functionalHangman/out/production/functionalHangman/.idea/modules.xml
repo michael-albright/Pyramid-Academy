@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/boardingPass.iml" filepath="$PROJECT_DIR$/.idea/boardingPass.iml" />
+      <module fileurl="file://$PROJECT_DIR$/functionalHangman.iml" filepath="$PROJECT_DIR$/functionalHangman.iml" />
     </modules>
   </component>
 </project>

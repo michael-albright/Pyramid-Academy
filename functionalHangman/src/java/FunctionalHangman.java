@@ -71,13 +71,12 @@ public class FunctionalHangman {
                 System.out.println("Congratulations! You won this round.");
                 System.out.println(outputIfTopScore());
                 System.out.println("Current High Score: " + outputHighScore());
-                //clearPlayersName();
                 break;
             }
                 //Play again or close and clear usedWords.txt
             if(checkForLoss(deathCount)) {
+                System.out.println(setGameBoard(deathCount, createGameBoard()));
                 System.out.println("You played a good life, but not everyone gets out of here alive.");
-                //clearPlayersName();
                 break;
             }
         }
@@ -85,9 +84,9 @@ public class FunctionalHangman {
 
     public static boolean checkAWordGuess(String s, int i) throws IOException {
         Charset ascii = StandardCharsets.US_ASCII;
-        List<String> gameStats = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/tempNameAndScore"));
-        List<String> correct = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/correctLetters"));
-        List<String> magicWord = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/magicWord"));
+        List<String> gameStats = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/tempNameAndScore"));
+        List<String> correct = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/correctLetters"));
+        List<String> magicWord = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/magicWord"));
         List<String> wordGuess = List.of(s.split(""));
         //char[] tempArr = s.toCharArray();
         List<String> tempList = new ArrayList<>();
@@ -108,8 +107,8 @@ public class FunctionalHangman {
         }
         gameStats.add(String.valueOf(x * 5));
         gameStats.add(String.valueOf(i * 5));
-        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/tempNameAndScore"), gameStats, ascii);
-        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/correctLetters"), magicWord, ascii);
+        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/tempNameAndScore"), gameStats, ascii);
+        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/correctLetters"), magicWord, ascii);
         return false;
     }
 
@@ -117,10 +116,10 @@ public class FunctionalHangman {
         Charset ascii = StandardCharsets.US_ASCII;
         int checkForLetter = s.charAt(0);
         if(checkForLetter >= 97 && checkForLetter <= 122) {
-            List<String> tempList = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/tempNameAndScore"));
-            List<String> correct = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/correctLetters"));
-            List<String> incorrect = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/incorrectLetters"));
-            List<String> magicWord = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/magicWord"));
+            List<String> tempList = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/tempNameAndScore"));
+            List<String> correct = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/correctLetters"));
+            List<String> incorrect = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/incorrectLetters"));
+            List<String> magicWord = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/magicWord"));
             if (correct.contains(s) || incorrect.contains(s)) {
                 return true;
             } else if (magicWord.contains(s)) {
@@ -130,19 +129,19 @@ public class FunctionalHangman {
                                 correct.set(a, s);
                             }
                         });
-                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/correctLetters"), correct, ascii);
+                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/correctLetters"), correct, ascii);
                 if(correct.equals(magicWord)) {
                     if(tempList.get(1).equals("e")) {
-                        List<String> gameStats = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/easyHighScores"));
+                        List<String> gameStats = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/easyHighScores"));
                         gameStats.add(String.valueOf(magicWord.size() * 5));
                         gameStats.add(String.valueOf(i * 5));
-                        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/tempNameAndScore"), gameStats, ascii);
+                        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/tempNameAndScore"), gameStats, ascii);
                     }
                 }
                 return false;
             } else {
                 incorrect.add(s);
-                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/incorrectLetters"), incorrect, ascii);
+                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/incorrectLetters"), incorrect, ascii);
                 return true;
             }
         } else return false;
@@ -150,10 +149,10 @@ public class FunctionalHangman {
 
     public static void getUsersTime(long start, long end) throws IOException {
         Charset ascii = StandardCharsets.US_ASCII;
-        List<String> tempList = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/tempNameAndScore"));
+        List<String> tempList = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/tempNameAndScore"));
         int timeInSecs = (int) ((end - start) / 1000);
         tempList.add(String.valueOf(timeInSecs));
-        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/tempNameAndScore"), tempList, ascii);
+        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/tempNameAndScore"), tempList, ascii);
     }
 
     public static void storePlayersName(Scanner scan, String gameType) throws IOException {
@@ -163,7 +162,7 @@ public class FunctionalHangman {
         if (!gameType.equals("h")) gameType = "e";
         tempList.add(name);
         tempList.add(gameType);
-        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/tempNameAndScore"), tempList, ascii);
+        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/tempNameAndScore"), tempList, ascii);
     }
 
     public static String outputHighScore() throws IOException {
@@ -172,9 +171,9 @@ public class FunctionalHangman {
         //easyFinalScores.clear();
         //Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/easyHighScores"), easyFinalScores, ascii);
 
-        List<String> tempList = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/tempNameAndScore"));
-        List<String> easyFinalScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/easyHighScores"));
-        List<String> hardFinalScores =  Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/hardHighScores"));
+        List<String> tempList = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/tempNameAndScore"));
+        List<String> easyFinalScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/easyHighScores"));
+        List<String> hardFinalScores =  Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/hardHighScores"));
 
         if(tempList.get(1).equals("e") && easyFinalScores.size() > 0) {
             return easyFinalScores.get(0) + " - " + easyFinalScores.get(1);
@@ -207,11 +206,11 @@ public class FunctionalHangman {
             scores.add(String.valueOf(userScore));
             }
             if(userDetails.get(1).equals("e")) {
-                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/easyScores"), scores, ascii);
-                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/easyHighScores"), finalInput, ascii);
+                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/easyScores"), scores, ascii);
+                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/easyHighScores"), finalInput, ascii);
             } else {
-                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/hardScores"), scores, ascii);
-                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/hardHighScores"), finalInput, ascii);
+                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/hardScores"), scores, ascii);
+                Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/hardHighScores"), finalInput, ascii);
             }
         return scores.get(0).equals(String.valueOf(userScore));
         }
@@ -223,10 +222,10 @@ public class FunctionalHangman {
         String name = tempList.get(0);
         int score = Integer.parseInt(tempList.get(2)) + Integer.parseInt(tempList.get(3)) + Integer.parseInt(tempList.get(4));
 
-        List<String> easyFinalScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/easyHighScores"));
-        List<String> easyScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/easyScores"));
-        List<String> highScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/hardScores"));
-        List<String> hardFinalScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/hardHighScores"));
+        List<String> easyFinalScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/easyHighScores"));
+        List<String> easyScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/easyScores"));
+        List<String> highScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/hardScores"));
+        List<String> hardFinalScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/hardHighScores"));
 
         if (tempList.get(1).equals("e") && getScoreResults(tempList, easyScores, easyFinalScores, name, score)) {
             return "Congratulations!! You are the high scorer!";
@@ -243,8 +242,8 @@ public class FunctionalHangman {
     }
 
     public static boolean checkForWin() throws IOException {
-        List<String> correct = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/correctLetters"));
-        List<String> magicWord = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/magicWord"));
+        List<String> correct = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/correctLetters"));
+        List<String> magicWord = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/magicWord"));
         return (correct.equals(magicWord) && correct.size() > 0);
 
     }
@@ -254,29 +253,29 @@ public class FunctionalHangman {
         List<String> correct = new ArrayList<>();
         Stream.of(s.split(""))
                 .forEach(a -> correct.add(" _ "));
-        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/correctLetters"), correct, ascii);
+        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/correctLetters"), correct, ascii);
     }
 
     public static void createIncorrectList() throws IOException {
         Charset ascii = StandardCharsets.US_ASCII;
         ArrayList<String> incorrect = new ArrayList<>();
         incorrect.add("Missed letters: ");
-        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/incorrectLetters"), incorrect, ascii);
+        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/incorrectLetters"), incorrect, ascii);
     }
 
     public static void createMagicWordList(String s) throws IOException {
         Charset ascii = StandardCharsets.US_ASCII;
         ArrayList<String> magicWord = new ArrayList<>(Arrays.asList(s.split("")));
-        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/magicWord"), magicWord, ascii);
+        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/magicWord"), magicWord, ascii);
     }
 
     public static boolean checkWordForRepeat(String s) throws IOException {
         //Scanner scan = new Scanner(System.in);
         Charset ascii = StandardCharsets.US_ASCII;
         List<String> noDoubles = List.of(s);
-        List<String> words = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/usedWords.txt"));
+        List<String> words = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/usedWords.txt"));
         if (!words.contains(s)) {
-            Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/usedWords.txt"), noDoubles, ascii,
+            Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/usedWords.txt"), noDoubles, ascii,
                     StandardOpenOption.APPEND, StandardOpenOption.CREATE);
             return true;
         }
@@ -289,16 +288,16 @@ public class FunctionalHangman {
         if(play.trim().equalsIgnoreCase("y")) {
             return true;
         } else {
-            List<String> words = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/usedWords.txt"));
+            List<String> words = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/usedWords.txt"));
             words.clear();
-            Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/usedWords.txt"), words, ascii);
+            Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/usedWords.txt"), words, ascii);
             return false;
         }
     }
 
     public static String outputCorrectLetters() throws IOException {
         StringBuilder sb = new StringBuilder();
-        List<String> correctLetters = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/correctLetters"));
+        List<String> correctLetters = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/correctLetters"));
         correctLetters.stream()
                 .forEach(a -> {
                     sb.append(a);
@@ -309,7 +308,7 @@ public class FunctionalHangman {
 
     public static String outputIncorrectLetters() throws IOException {
         StringBuilder sb = new StringBuilder();
-        List<String> incorrectLetters = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/incorrectLetters"));
+        List<String> incorrectLetters = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/incorrectLetters"));
         incorrectLetters.stream()
                 .forEach(a -> {
                     sb.append(a);
@@ -368,7 +367,7 @@ public class FunctionalHangman {
             gameBoard.set(6, arms);
             gameBoard.set(7, bottom3);
         }
-        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/gameBoard"), gameBoard, ascii);
+        Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/gameBoard"), gameBoard, ascii);
 
         gameBoard.stream()
                 .forEach(a -> {
