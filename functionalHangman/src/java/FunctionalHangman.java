@@ -167,10 +167,6 @@ public class FunctionalHangman {
 
     public static String outputHighScore() throws IOException {
 
-        //Charset ascii = StandardCharsets.US_ASCII;
-        //easyFinalScores.clear();
-        //Files.write(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/functionalHangman/resources/easyHighScores"), easyFinalScores, ascii);
-
         List<String> tempList = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/tempNameAndScore"));
         List<String> easyFinalScores = Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/easyHighScores"));
         List<String> hardFinalScores =  Files.readAllLines(Paths.get("/Users/michaelsalbright/Documents/GenSpark-Programs/Pyramid-Academy/functionalHangman/resources/hardHighScores"));
